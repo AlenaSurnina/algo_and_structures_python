@@ -1,0 +1,127 @@
+import random
+'''
+1. В диапазоне натуральных чисел от 2 до 99 определить,
+сколько из них кратны каждому из чисел в диапазоне от 2 до 9.
+'''
+DIVISIBLE_OF_2 = 0
+DIVISIBLE_OF_3 = 0
+DIVISIBLE_OF_4 = 0
+DIVISIBLE_OF_5 = 0
+DIVISIBLE_OF_6 = 0
+DIVISIBLE_OF_7 = 0
+DIVISIBLE_OF_8 = 0
+DIVISIBLE_OF_9 = 0
+for i in range(2, 100):
+    if i % 2 == 0:
+        DIVISIBLE_OF_2 += 1
+    if i % 3 == 0:
+        DIVISIBLE_OF_3 += 1
+    if i % 4 == 0:
+        DIVISIBLE_OF_4 += 1
+    if i % 5 == 0:
+        DIVISIBLE_OF_5 += 1
+    if i % 6 == 0:
+        DIVISIBLE_OF_6 += 1
+    if i % 7 == 0:
+        DIVISIBLE_OF_7 += 1
+    if i % 8 == 0:
+        DIVISIBLE_OF_8 += 1
+    if i % 9 == 0:
+        DIVISIBLE_OF_9 += 1
+print(f'Чисел, кратных двум: {DIVISIBLE_OF_2}\n'
+      f'Чисел, кратных трем: {DIVISIBLE_OF_3}\n'
+      f'Чисел, кратных четырем: {DIVISIBLE_OF_4}\n'
+      f'Чисел, кратных пяти: {DIVISIBLE_OF_5}\n'
+      f'Чисел, кратных шести: {DIVISIBLE_OF_6}\n'
+      f'Чисел, кратных семи: {DIVISIBLE_OF_7}\n'
+      f'Чисел, кратных восьми: {DIVISIBLE_OF_8}\n'
+      f'Чисел, кратных девяти: {DIVISIBLE_OF_9}\n')
+
+# 2.Во втором массиве сохранить индексы четных элементов первого массива.
+# Например, если дан массив со значениями 8, 3, 15, 6, 4, 2,
+# то во второй массив надо заполнить значениями 1, 4, 5, 6
+# (или 0, 3, 4, 5 - если индексация начинается с нуля),
+# т.к. именно в этих позициях первого массива стоят четные числа.
+
+MY_LIST = [8, 3, 15, 6, 11, 4, 7, 2]
+NEW_LIST = [MY_LIST.index(i) for i in MY_LIST if i % 2 == 0]
+print(NEW_LIST)
+
+#3.В массиве случайных целых чисел поменять местами минимальный
+# и максимальный элементы.
+LIST_1 = [8, 6, 9, 5, 4, 3, 7]
+print(LIST_1)
+
+IND_MIN = LIST_1.index(min(LIST_1))
+IND_MAX = LIST_1.index(max(LIST_1))
+LIST_1[IND_MIN], LIST_1[IND_MAX] = LIST_1[IND_MAX], LIST_1[IND_MIN]
+
+print(LIST_1)
+
+# 4. Определить, какое число в массиве встречается чаще всего.
+LIST_2 = [8, 6, 9, 5, 4, 3, 2, 6, 1, 9, 6]
+MAX_COUNT = 0
+for num in LIST_2:
+    if LIST_2.count(num) > MAX_COUNT:
+        MAX_COUNT = LIST_2.count(num)
+        num += 1
+print(f'Число {num} встречается чаще всего')
+
+
+# 5. В массиве найти максимальный отрицательный элемент.
+# Вывести на экран его значение и позицию в массиве.
+LIST_3 = [8, -6, 9, 5, 4, -3, -2, 6, 1, -9, 6]
+LiST_OF_NEGATIVE = [num for num in LIST_3 if num < 0]
+
+print(f'Число: {max(LiST_OF_NEGATIVE)}, индекс: {LIST_3.index(max(LiST_OF_NEGATIVE))}')
+
+# 6. В одномерном массиве найти сумму элементов,
+# находящихся между минимальным и максимальным элементами.
+# Сами минимальный и максимальный элементы в сумму не включать.
+LIST_4 = [8, 6, 9, 5, 4, 3, 7, 6, 2, 9, 6]
+if LIST_4.index(min(LIST_4)) < LIST_4.index(max(LIST_4)):
+    print(sum(LIST_4[LIST_4.index(min(LIST_4))+1:LIST_4.index(max(LIST_4))]))
+elif LIST_4.index(min(LIST_4)) > LIST_4.index(max(LIST_4)):
+    print(sum(LIST_4[LIST_4.index(max(LIST_4)) + 1:LIST_4.index(min(LIST_4))]))
+
+
+# 7. В одномерном массиве целых чисел определить два наименьших элемента.
+# Они могут быть как равны между собой (оба являться минимальными),
+# так и различаться.
+
+LIST_5 = [8, 6, 1, 5, 4, 3, 7, 2, 9, 6]
+print(f'Наименьшие элементы списка: {sorted(LIST_5)[:2]}')
+
+
+# 8. Матрица 5x4 заполняется вводом с клавиатуры кроме последних элементов строк.
+# Программа должна вычислять сумму введенных элементов каждой строки
+# и записывать ее в последнюю ячейку строки. В конце следует вывести полученную матрицу.
+
+N = 5
+M = 4
+
+MATRIX = []
+for i in range(N):
+    b = []
+    for j in range(M):
+        b.append(random.randint(0, 10))
+        print(f"{b[j]:4d}", end='')
+    MATRIX.append(b)
+    print('   |', sum(b))
+
+# 9. Найти максимальный элемент среди минимальных элементов столбцов матрицы.
+MATRIX = [[1, 2, 3, 4, 7], [5, 6, 7, 4, 8], [9, 10, 11, 12, 1], [13, 14, 2, 16, 10]]
+def Matrix(matrix):
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+            print(f"{matrix[i][j]:4d}", end="")
+print()
+Matrix(MATRIX)
+COLUMNS = 5
+LINES = 4
+A = []
+for x in range(COLUMNS):
+    list_col = [MATRIX[i][x] for i in range(LINES)]
+    A.append(min(list_col))
+
+print(f'Минимальные элементы матрицы: {A}, максимальный: {max(A)}')
