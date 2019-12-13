@@ -1,0 +1,48 @@
+# 1. Определение количества различных подстрок с использованием хэш-функции.
+# Пусть дана строка S длиной N, состоящая только из маленьких латинских букв.
+# Требуется найти количество различных подстрок в этой строке.
+
+# ПРИШЛЮ ПОЗЖЕ!!!
+
+# 2. Закодируйте любую строку из трех слов по алгоритму Хаффмана.
+from collections import Counter, deque
+
+def binary_tree(s):
+    count = Counter(s)
+    sorted_elements = deque(sorted(count.items(), key=lambda item: item[1]))
+    if len(sorted_elements) != 1:
+        while len(sorted_elements) > 1:
+            frequencies = sorted_elements[0][1] + sorted_elements[1][1]
+            comb = {0: sorted_elements.popleft()[0],
+                    1: sorted_elements.popleft()[0]}
+
+            for i, _count in enumerate(sorted_elements):
+                if frequencies > _count[1]:
+                    continue
+                else:
+                    sorted_elements.insert(i, (comb, frequencies))
+                    break
+            else:
+
+                sorted_elements.append((comb, frequencies))
+    else:
+        frequencies = sorted_elements[0][1]
+        comb = {0: sorted_elements.popleft()[0], 1: None}
+        sorted_elements.append((comb, frequencies))
+    return sorted_elements[0][0]
+
+charset = dict()
+
+def haffman_code(tree, path=''):
+    if not isinstance(tree, dict):
+        charset[tree] = path
+    else:
+        haffman_code(tree[0], path=f'{path}0')
+        haffman_code(tree[1], path=f'{path}1')
+
+MY_SENTENCE = "пришел,увидел,победил"
+
+haffman_code(binary_tree(MY_SENTENCE))
+
+for i in MY_SENTENCE:
+    print(charset[i], end=' ')
