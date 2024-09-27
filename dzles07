@@ -1,0 +1,79 @@
+import random
+
+# 1. Отсортируйте по убыванию методом "пузырька" одномерный целочисленный массив,
+# данный случайными числами на промежутке [-100; 100).
+# Выведите на экран исходный и отсортированный массивы.
+# Сортировка должна быть реализована в виде функции.
+# По возможности доработайте алгоритм (сделайте его умнее).
+
+def bubble_sort(list):
+    n = 1
+    while n < len(list):
+        for i in range(len(list) - n):
+            if list[i] < list[i + 1]:
+                list[i], list[i + 1] = list[i + 1], list[i]
+        n += 1
+    return list
+
+LIST_1 = [random.randint(-100, 100) for i in range(10)]
+print(LIST_1)
+print(bubble_sort(LIST_1))
+
+# 2. Отсортируйте по возрастанию методом слияния одномерный вещественный массив,
+# заданный случайными числами на промежутке [0; 50).
+# Выведите на экран исходный и отсортированный массивы.
+
+def spliting(lst):
+    if len(lst) > 1:
+        mid = len(lst) // 2
+        lefthalf = lst[:mid]
+        righthalf = lst[mid:]
+
+        spliting(lefthalf)
+        spliting(righthalf)
+
+        l, r, k = 0, 0, 0
+
+        while l < len(lefthalf) and r < len(righthalf):
+            if lefthalf[l] < righthalf[r]:
+                lst[k] = lefthalf[l]
+                l += 1
+            else:
+                lst[k] = righthalf[r]
+                r += 1
+            k += 1
+
+        while l < len(lefthalf):
+            lst[k] = lefthalf[l]
+            l += 1
+            k += 1
+
+        while r < len(righthalf):
+            lst[k] = righthalf[r]
+            r += 1
+            k += 1
+        return lst
+
+LIST_2 = [round(i, 2) for i in (random.uniform(0, 50) for i in range(10))]
+print(LIST_2)
+print(spliting(LIST_2))
+
+# 3. Массив размером 2m + 1, где m – натуральное число,
+# заполнен случайным образом. Найдите в массиве медиану.
+# Медианой называется элемент ряда, делящий его на две равные части:
+# в одной находятся элементы, которые не меньше медианы, в другой – не больше медианы.
+# Задачу можно решить без сортировки исходного массива. Но если это слишком сложно,
+# то используйте метод сортировки, который не рассматривался на уроках
+M = int(input("Введите число, которое сгенерирует массив: "))
+LIST_3 = [random.randint(-0, 100) for i in range(2 * M + 1)]
+print(LIST_3)
+
+COUNT_MIN = 0
+while COUNT_MIN < M // 2 + 1:
+    for num in LIST_3:
+        if num == min(LIST_3):
+            LIST_3.remove(num)
+            COUNT_MIN += 1
+
+print(f'Медиана списка - число: {min(LIST_3)}')
+
